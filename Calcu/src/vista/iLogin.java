@@ -7,7 +7,6 @@ package vista;
 
 import db.Conexion;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,8 +34,9 @@ public class iLogin extends JFrame implements ActionListener {
     JLabel lbPsw;
     Conexion con;
     Font fuente = new Font("Arial", Font.PLAIN, 24);
-    public iLogin()
-    {
+    Font fuente2 = new Font("Arial", Font.PLAIN, 20);
+    Color azul = new Color(0,153,255);
+    public iLogin(){
         con = new Conexion();
         con.conectar();
         
@@ -52,40 +52,38 @@ public class iLogin extends JFrame implements ActionListener {
         add(lbTitle);
         
         lbUsr=new JLabel();
-        lbUsr.setText("Usuario:");
-        lbUsr.setFont(new Font("Arial", Font.PLAIN, 20));
-        lbUsr.setForeground(Color.white);   
-        lbUsr.setBounds(0, 60, 100, 30);
+        lbUsr.setText("Email:");
+        lbUsr.setFont(fuente2); 
+        lbUsr.setBounds(170, 60, 150, 30);
         lbUsr.setHorizontalAlignment(SwingConstants.CENTER);
         add(lbUsr);
         
         lbPsw=new JLabel();
         lbPsw.setText("Password:");
-        lbPsw.setFont(new Font("Arial", Font.PLAIN, 20));
-        lbPsw.setForeground(Color.white);   
-        lbPsw.setBounds(5, 160, 130, 30);
+        lbPsw.setFont(fuente2);   
+        lbPsw.setBounds(170, 160, 150, 30);
         lbPsw.setHorizontalAlignment(SwingConstants.CENTER);
         add(lbPsw);
         
         txtEmail=new JTextField(10);
-        txtEmail.setFont(new Font("Arial", Font.PLAIN, 20));
-        txtEmail.setBounds(0,90,300,45);
+        txtEmail.setFont(fuente2);
+        txtEmail.setBounds(70, 100, 350, 35);
         add(txtEmail);
 
         txtPsw=new JPasswordField(10);
-        txtPsw.setBounds(0,190,300,45);
-        txtPsw.setFont(new Font("Arial", Font.PLAIN, 20));
+        txtPsw.setBounds(70, 200, 350, 35);
+        txtPsw.setFont(fuente2);
         add(txtPsw);
         
         btnEnter=new JButton("Entrar");
-        btnEnter.setBounds(0,250,300,45);
-        btnEnter.setBackground(new Color(0,153,255));
+        btnEnter.setBounds(155, 250, 180, 35);
+        btnEnter.setBackground(azul);
         btnEnter.setFont(fuente); 
         btnEnter.setForeground(new Color(255, 255, 255));
         btnEnter.addActionListener(this);
         add(btnEnter);
         
-        this.setSize(500,320);
+        this.setSize(500,350);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -111,6 +109,7 @@ public class iLogin extends JFrame implements ActionListener {
             
             if(resultado.equals("Bien")){
                 this.dispose();
+                iMenu memu = new iMenu();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Mal");
