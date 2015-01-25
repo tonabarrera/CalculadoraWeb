@@ -1,0 +1,50 @@
+@import "normalize.styl"
+azul = #2196F3
+amarillo = #FFC107
+gris = #E4E4E4
+fondo = #F9F9F9
+azulH = #1E88E5
+body
+	background fondo
+	padding 0 0.5em
+.Section
+	background white
+	border-radius 0.5em
+	padding 2.5em 1em
+	text-align center
+	max-width 25em
+	margin 0 auto
+	margin-top 2em
+	box-shadow 0 1px 2px rgba(0,0,0,0.24)
+	&-link
+		color azul
+		text-decoration none
+		&:hover
+			color azulH
+	&-title
+		font-weight normal
+		margin 0
+		margin-bottom 1em
+	&-txt
+		display block
+		margin 0 auto
+		padding-bottom 4px
+		margin-bottom 2em
+		width 80%
+		border none
+		border-bottom 1px solid gris
+		&:focus
+			outline none
+			border-bottom 1px solid azul
+	&-submit
+		display block
+		margin 0 auto
+		border-radius 3px
+		border none
+		padding 0.5em 1.5em
+		color white
+		box-shadow 0 1px 2px rgba(0,0,0,0.24)
+		background azul
+		font-size 18px
+		&:hover
+			background azulH
