@@ -19,9 +19,9 @@
     <body>
         <section class="Section">
             <h1 class="Section-title">Login</h1>
-            <form action="">
-            	<input type="email" class="Section-txt" placeholder="Email" required>
-            	<input type="password" class="Section-txt" placeholder="Password" required>
+            <form action="sLogin" method="post">
+            	<input type="email" class="Section-txt" placeholder="Email" name="email" required>
+            	<input type="password" class="Section-txt" placeholder="Password" name="password" required>
             	<input type="submit" class="Section-submit" value="Enviar">
                 <p>¿Eres nuevo por aqui?, pues <a href="sRegistro" class="Section-link">Registrate</a></p>
             </form>

@@ -42,7 +42,6 @@ public class sLogin extends HttpServlet {
             con.conectar();
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            String name = request.getParameter("name");
             String resultado = con.Login(email, password);
             if(resultado.equals("Bien")){
                 response.sendRedirect("sMenu");
