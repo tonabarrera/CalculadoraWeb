@@ -12,14 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author lordtony
  */
-@WebServlet(name = "sMenu", urlPatterns = {"/sMenu"})
-public class sMenu extends HttpServlet {
+@WebServlet(name = "sCalcu", urlPatterns = {"/sCalcu"})
+public class sCalcu extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,28 +34,15 @@ public class sMenu extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession sesion = request.getSession();
-            int id = (Integer)sesion.getAttribute("id");
-            System.out.print(id);
-            out.println("<!DOCTYPE html>\n" +
-"<html lang=\"en\">\n" +
-"	<head>\n" +
-"		<meta charset=\"UTF-8\">\n" +
-"		<meta charset=\"utf-8\">\n" +
-"	    <meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\">\n" +
-"	    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>	\n" +
-"		<link rel=\"stylesheet\" href=\"css/menu.css\">\n" +
-"		<link rel=\"shortcut icon\" href=\"img/cara.png\">\n" +
-"		<title>Menu</title>\n" +
-"	</head>\n" +
-"	<body>\n" +
-"		<section class=\"Section\">\n" +
-"                    <h1 class=\"Section-title\">Seleciona Algo que hacer</h1>\n" +
-"	            <a class=\"Section-calcu\" href=\"sCalcu\">Calculadora</a>\n" +
-"	            <a class=\"Section-xml\" href=\"sVerXML\">Ver XML</a>\n" +
-"	    </section>\n" +
-"	</body>\n" +
-"</html>");
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet sCalcu</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet sCalcu at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

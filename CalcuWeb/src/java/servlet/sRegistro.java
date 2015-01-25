@@ -51,7 +51,7 @@ public class sRegistro extends HttpServlet {
 "            <form action=\"sAltaUser\" method=\"post\">\n" +
 "            	<input type=\"email\" class=\"Section-txt\" placeholder=\"Email\" name=\"email\" required>\n" +
 "            	<input type=\"password\" class=\"Section-txt\" placeholder=\"Password\" name=\"password\" required>\n" +
-"            	<input type=\"text\" class=\"Section-txt\" placeholder=\"Name\" name=\"name\" required>\n" +
+"            	<input type=\"text\" class=\"Section-txt\" placeholder=\"User name\" name=\"name\" required>\n" +
 "            	<input type=\"submit\" class=\"Section-submit\" value=\"Enviar\">\n" +
 "               <p>¿Ya tienes cuenta?, pues <a href=\"/CalcuWeb\" class=\"Section-link\">Ingresa</a></p>\n" +
 "            </form>\n" +

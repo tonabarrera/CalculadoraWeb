@@ -8,6 +8,7 @@ package servlet;
 import db.Conexion;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,13 +40,23 @@ public class sLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession sesion = request.getSession();
             Conexion con = new Conexion();
             con.conectar();
+            ResultSet resultado2;
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String resultado = con.Login(email, password);
             if(resultado.equals("Bien")){
                 response.sendRedirect("sMenu");
+                resultado2 = con.getDatos(email);
+                while(resultado2.next()){
+                    int id = resultado2.getInt("idUser");
+                    System.out.print(id);
+                    String userName = resultado2.getString("userName");
+                    sesion.setAttribute("id", id);
+                    sesion.setAttribute("userName", userName);
+                }
             }
             else{
                 response.sendRedirect("/CalcuWeb");

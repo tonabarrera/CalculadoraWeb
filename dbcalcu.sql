@@ -27,9 +27,7 @@ DROP TABLE IF EXISTS `tbl_operaciones`;
 CREATE TABLE `tbl_operaciones` (
   `idoperaciones` int(11) NOT NULL,
   `iduser` int(11) DEFAULT NULL,
-  `tipo` varchar(100) DEFAULT NULL,
   `operacion` varchar(100) DEFAULT NULL,
-  `resultado` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idoperaciones`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -145,4 +143,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-24 22:23:41
+-- Dump completed on 2015-01-25 13:41:20

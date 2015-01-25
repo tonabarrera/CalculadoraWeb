@@ -73,4 +73,27 @@ public class Conexion {
         System.out.println("El resultado: " + resultado);
         return resultado;
     }
+
+    public ResultSet getDatos(String email) throws SQLException {
+        ResultSet rs;
+        this.stm = con.createStatement();
+        rs = stm.executeQuery("call spCarga('"+email+"');");
+        return rs;
+    }
+    public String getXML(int id) throws SQLException{
+        this.stm = con.createStatement();       
+        ResultSet rs;
+        int i=0;
+        rs = stm.executeQuery("call spGetXML('"+id+"')");
+        String tipo = "<operaciones>";
+        while(rs.next()){
+           tipo += "<operacion>\n";
+           tipo += "<id>" + rs.getString("idoperaciones") + "</id>\n";
+           tipo += "<laOperacion>" + rs.getString("operacion") + "<laOperacion>\n";
+           tipo += "</operacion>";
+        }
+        tipo += "</operaciones>";
+        System.out.print(tipo);
+        return tipo;
+     }
 }
