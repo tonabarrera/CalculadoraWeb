@@ -6,10 +6,14 @@
 package vista;
 
 import clases.Numero;
+import db.Conexion;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -34,11 +38,18 @@ class iCalcu extends JFrame implements ActionListener{
     Font jlFuente = new Font("Arial", Font.BOLD, 24);
     Font txtFuente = new Font("Arial", Font.BOLD, 20);
     Font rbFuente = new Font("Arial", Font.BOLD, 18);
-    public iCalcu(){
+    int id_user;
+    String user_name;
+    Conexion con = new Conexion();
+    public iCalcu(int id, String username){
         setTitle("Calculadora");
         getContentPane().setBackground(Color.BLACK);
         setLayout(null);
         setResizable(false);
+        con.conectar();
+        this.id_user = id;
+        this.user_name = username;
+        
         jlNum1=new JLabel();
         jlNum1.setText("Numero 1:");
         jlNum1.setFont(jlFuente);
@@ -149,38 +160,43 @@ class iCalcu extends JFrame implements ActionListener{
         Numero aux = new Numero();
         if(e.getSource()==btnAtras){
             this.dispose();
-            iMenu menu = new iMenu();
+            iMenu menu = new iMenu(id_user, user_name);
         }
         else{
             if(e.getSource() == btnCalcula){
-                String numero1=txtNum1.getText();
-                String numero2=txtNum2.getText();
-                val1 = Float.parseFloat(numero1);
-                val2 = Float.parseFloat(numero2);
-                aux.setNum(val1, val2);
-                
-                if(rbSuma.isSelected() == true){
-                    total = Float.toString(aux.suma());
-                    operacion = numero1 + " + " + numero2 + " = " + total;
-                }else{
-                    if(rbResta.isSelected() == true){
-                        total = Float.toString(aux.resta());
-                        operacion = numero1 + " - " + numero2 + " = " + total;
+                try {
+                    String numero1=txtNum1.getText();
+                    String numero2=txtNum2.getText();
+                    val1 = Float.parseFloat(numero1);
+                    val2 = Float.parseFloat(numero2);
+                    aux.setNum(val1, val2);
+                    
+                    if(rbSuma.isSelected() == true){
+                        total = Float.toString(aux.suma());
+                        operacion = numero1 + " + " + numero2 + " = " + total;
                     }else{
-                        if(rbDivision.isSelected() == true){
-                            total = Float.toString(aux.div());
-                            operacion = numero1 + " ÷ " + numero2 + " = " + total;
+                        if(rbResta.isSelected() == true){
+                            total = Float.toString(aux.resta());
+                            operacion = numero1 + " - " + numero2 + " = " + total;
                         }else{
-                            if(rbProducto.isSelected() == true){
-                                total = Float.toString(aux.mul());
-                                operacion = numero1 + " * " + numero2 + " = " + total;
+                            if(rbDivision.isSelected() == true){
+                                total = Float.toString(aux.div());
+                                operacion = numero1 + " ÷ " + numero2 + " = " + total;
                             }else{
-                                JOptionPane.showMessageDialog(null, msn, "No mame abuelo", JOptionPane.ERROR_MESSAGE);
+                                if(rbProducto.isSelected() == true){
+                                    total = Float.toString(aux.mul());
+                                    operacion = numero1 + " * " + numero2 + " = " + total;
+                                }else{
+                                    JOptionPane.showMessageDialog(null, msn, "No mame abuelo", JOptionPane.ERROR_MESSAGE);
+                                }
                             }
                         }   
                     }
+                    jlTotal.setText(total);
+                    con.altaOp(id_user, operacion);
+                } catch (SQLException ex) {
+                    Logger.getLogger(iCalcu.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                jlTotal.setText(total);
             }
             else{
                 System.out.println("Algo mas");

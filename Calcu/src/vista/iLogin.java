@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,7 +97,7 @@ public class iLogin extends JFrame implements ActionListener {
             char password[] = txtPsw.getPassword();
             String pass = "";
             String resultado = "";
-            
+            ResultSet resultado2 = null;
             for(int i=0; i<password.length; i++){
                 pass += password[i];
             }
@@ -108,8 +109,24 @@ public class iLogin extends JFrame implements ActionListener {
             }
             
             if(resultado.equals("Bien")){
-                this.dispose();
-                iMenu memu = new iMenu();
+                int id = 0;
+                String userName="";
+                try {
+                    resultado2 = con.getDatos(email);
+                } catch (SQLException ex) {
+                    Logger.getLogger(iLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    this.dispose();
+                    while(resultado2.next()){
+                        id = resultado2.getInt("idUser");
+                        System.out.print(id);
+                        userName = resultado2.getString("userName");
+                    }
+                    iMenu memu = new iMenu(id, userName);
+                } catch (SQLException ex) {
+                    Logger.getLogger(iLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             else{
                 JOptionPane.showMessageDialog(null, "Mal");

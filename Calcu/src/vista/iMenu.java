@@ -9,12 +9,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 /**
  *
@@ -28,18 +28,22 @@ public class iMenu extends JFrame implements ActionListener{
     Color azul = new Color(0,153,255);
     Color morado = new Color(172,124,255);
     Color verde = new Color(0,222,118);
-    public iMenu(){
+    int id_user;
+    String user_name = "";
+    public iMenu(int id, String userName){
         this.setTitle("Calculadora");
         this.setLayout(null);
         this.setResizable(false);
         this.getContentPane().setBackground(new Color(249, 249, 249));
-             
+        this.id_user = id;
+        this.user_name = userName;
         lbTitle = new JLabel();
-        lbTitle.setText("¿Qué quieres hacer?");
+        lbTitle.setText("¿Qué quieres hacer?, " +userName);
         lbTitle.setFont(fuente);
         lbTitle.setBounds(120, 10, 300, 30);
         add(lbTitle);
         
+        /*
         btnXML=new JButton("Ver XML");
         btnXML.setBounds(155, 60, 180, 35);
         btnXML.setBackground(azul);
@@ -47,7 +51,7 @@ public class iMenu extends JFrame implements ActionListener{
         btnXML.setForeground(new Color(255, 255, 255));
         btnXML.addActionListener(this);
         add(btnXML);
-        
+        */
         btnConsu=new JButton("Mis operaciones");
         btnConsu.setBounds(120, 160, 250, 35);
         btnConsu.setBackground(verde);
@@ -55,6 +59,7 @@ public class iMenu extends JFrame implements ActionListener{
         btnConsu.setForeground(new Color(255, 255, 255));
         btnConsu.addActionListener(this);
         add(btnConsu);
+        
         
         btnCalcu=new JButton("Calculadora");
         btnCalcu.setBounds(155, 250, 180, 35);
@@ -73,20 +78,14 @@ public class iMenu extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==btnCalcu){
                 this.dispose();
-                iCalcu cal = new iCalcu();
-        }
-        else{
-            if(e.getSource()== btnXML){
+                iCalcu cal = new iCalcu(id_user, user_name);
+        }else{
+            if(e.getSource() == btnConsu){
                 this.dispose();
-                iVerXML verXML = new iVerXML();
-            }
-            else{
-                if(e.getSource() == btnConsu){
-                    this.dispose();
-                    iConsulta consu = new iConsulta();
-                }
-                else{
-                    System.out.println("Otra cosa");
+                try {
+                    iConsulta con = new iConsulta(id_user, user_name);
+                } catch (SQLException ex) {
+                    Logger.getLogger(iMenu.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
