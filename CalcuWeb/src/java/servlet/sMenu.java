@@ -37,6 +37,7 @@ public class sMenu extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession sesion = request.getSession();
             int id = (Integer)sesion.getAttribute("id");
+            String username = (String) sesion.getAttribute("userName");
             System.out.print(id);
             out.println("<!DOCTYPE html>\n" +
 "<html lang=\"en\">\n" +
@@ -51,7 +52,7 @@ public class sMenu extends HttpServlet {
 "	</head>\n" +
 "	<body>\n" +
 "		<section class=\"Section\">\n" +
-"                    <h1 class=\"Section-title\">Seleciona Algo que hacer</h1>\n" +
+"                    <h1 class=\"Section-title\">"+username+", Seleciona algo que hacer</h1>\n" +
 "	            <a class=\"Section-calcu\" href=\"sCalcu\">Calculadora</a>\n" +
 "	            <a class=\"Section-xml\" href=\"sVerXML\">Ver XML</a>\n" +
 "	    </section>\n" +

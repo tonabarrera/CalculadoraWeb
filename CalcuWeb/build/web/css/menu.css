@@ -195,6 +195,7 @@ body {
 }
 .Section-title {
   font-weight: normal;
+  margin-top: 0;
 }
 .Section-calcu {
   background: #2196f3;

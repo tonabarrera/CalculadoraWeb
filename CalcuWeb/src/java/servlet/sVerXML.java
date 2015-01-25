@@ -57,7 +57,7 @@ public class sVerXML extends HttpServlet {
 "		<title>Menu</title>\n" +
 "	</head>\n" +
 "	<body>\n");
-            out.print("<section charset=\"Section\">");
+            out.print("<section class=\"Section\">");
             out.print("<h1>Mis operaciones</h1>");
             out.print(xml);
             out.println("</section>");

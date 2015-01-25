@@ -86,6 +86,10 @@ public class Conexion {
         int i=0;
         rs = stm.executeQuery("call spGetXML('"+id+"')");
         String tipo = "<operaciones>";
+        tipo += "<operacion>\n";
+        tipo += "<id>ID</id>";
+        tipo += "<laOperacion>Operacion</laOperacion>";
+        tipo += "</operacion>\n";
         while(rs.next()){
            tipo += "<operacion>\n";
            tipo += "<id>" + rs.getString("idoperaciones") + "</id>\n";
