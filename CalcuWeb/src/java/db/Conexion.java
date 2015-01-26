@@ -100,4 +100,9 @@ public class Conexion {
         System.out.print(tipo);
         return tipo;
      }
+    public void altaOp(int id, String operacion) throws SQLException {
+        ResultSet rs;
+        this.stm = con.createStatement();
+        rs = stm.executeQuery("call spAltaOperacion("+id+", '"+operacion+"');");
+    }
 }
