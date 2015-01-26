@@ -5,9 +5,11 @@
  */
 package servlet;
 
+import clases.Cifrar;
 import db.Conexion;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -36,7 +38,7 @@ public class sLogin extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, NoSuchAlgorithmException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -46,6 +48,9 @@ public class sLogin extends HttpServlet {
             ResultSet resultado2;
             String email = request.getParameter("email");
             String password = request.getParameter("password");
+            Cifrar aux = new Cifrar(email, password);
+            email = aux.getCorreo();
+            password = aux.getPass();
             String resultado = con.Login(email, password);
             if(resultado.equals("Bien")){
                 response.sendRedirect("sMenu");
@@ -82,6 +87,8 @@ public class sLogin extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(sLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(sLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -99,6 +106,8 @@ public class sLogin extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(sLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(sLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

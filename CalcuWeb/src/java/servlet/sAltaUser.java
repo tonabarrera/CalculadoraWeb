@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import clases.Cifrar;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,9 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import db.Conexion;
+import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,18 +38,31 @@ public class sAltaUser extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, NoSuchAlgorithmException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession sesion = request.getSession();
             Conexion con = new Conexion();
             con.conectar();
+            ResultSet resultado2;
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             String name = request.getParameter("name");
+            Cifrar aux = new Cifrar(email, password);
+            email = aux.getCorreo();
+            password = aux.getPass();
             String resultado = con.Alta(email, password, name);
             if(resultado.equals("Bien")){
                 response.sendRedirect("sMenu");
+                resultado2 = con.getDatos(email);
+                while(resultado2.next()){
+                    int id = resultado2.getInt("idUser");
+                    System.out.print(id);
+                    String userName = resultado2.getString("userName");
+                    sesion.setAttribute("id", id);
+                    sesion.setAttribute("userName", userName);
+                }
             }
             else{
                 response.sendRedirect("sRegistro");
@@ -71,6 +88,8 @@ public class sAltaUser extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(sAltaUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(sAltaUser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,6 +107,8 @@ public class sAltaUser extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(sAltaUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(sAltaUser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

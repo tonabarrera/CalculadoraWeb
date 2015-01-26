@@ -40,7 +40,7 @@ public class iMenu extends JFrame implements ActionListener{
         lbTitle = new JLabel();
         lbTitle.setText("¿Qué quieres hacer?, " +userName);
         lbTitle.setFont(fuente);
-        lbTitle.setBounds(120, 10, 300, 30);
+        lbTitle.setBounds(80, 10, 400, 30);
         add(lbTitle);
         
         /*

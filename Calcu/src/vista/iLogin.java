@@ -5,11 +5,13 @@
  */
 package vista;
 
+import clases.Cifrar;
 import db.Conexion;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -98,8 +100,21 @@ public class iLogin extends JFrame implements ActionListener {
             String pass = "";
             String resultado = "";
             ResultSet resultado2 = null;
+            
             for(int i=0; i<password.length; i++){
                 pass += password[i];
+            }
+            Cifrar aux = new Cifrar(email, pass);
+            try {
+                email = aux.getCorreo();
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(iLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {
+                pass = aux.getPass();
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(iLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             try {
